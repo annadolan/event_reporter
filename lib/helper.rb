@@ -1,7 +1,7 @@
-class Output
+class Helper
   def run_help(input, input2 = nil)
     if input.nil?
-      output = "Available commands: load, queue, find"
+      output = "Available commands: load, queue, find, exit"
     elsif input == "queue"
       if input2 == "count"
         output = "Counts items in queue"

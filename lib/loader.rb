@@ -43,6 +43,10 @@ class Loader
   def queue_print_by(input)
     @queue.queue_print_by(input)
   end
+
+  def queue_save_to(input)
+    @queue.queue_save_to(input)
+  end
 end
 
     # l = Loader.new

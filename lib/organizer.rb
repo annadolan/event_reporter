@@ -2,7 +2,7 @@ require 'pry'
 #require "csv"
 #require "sunlight/congress"
 require "./lib/loader"
-require "./lib/output"
+require "./lib/helper"
 require "./lib/queue"
 
 class Organizer
@@ -10,12 +10,12 @@ class Organizer
  def initialize
    @file = nil
    @l = Loader.new
+   @help = Helper.new
  end
 
 puts "Enter command."
 
 def get_command
-
   input = gets.chomp
   input = input.downcase.gsub(/to | by /, " ").split(" ")
 
@@ -26,8 +26,6 @@ def get_command
 end
 
 def do_command
-
-
   if @command == "load"
     if @command2.nil?
       file_name = "event_attendees.csv"
@@ -45,9 +43,10 @@ def do_command
     else
       @l.queue_print_by(@command3)
     end
+  elsif @command == "queue" && @command2 == "save"
+    @l.queue_save_to(@command3)
   elsif @command == "help"
-    o = Output.new
-    o.run_help(@command2, @command3)
+    @help.run_help(@command2, @command3)
   elsif @command == "find"
     @l.clear_queue
     @l.find(@command2, @command3)
@@ -57,14 +56,6 @@ def do_command
   end
   get_command
 end
-
-
-
-def find(input)
-
-end
-
-
 
 # def run_queue
 #   case command2
@@ -83,11 +74,7 @@ end
 
 # end
 
-
-
-
-
 end
 
-o = Organizer.new
-o.get_command
+ o = Organizer.new
+ o.get_command

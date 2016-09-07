@@ -1,5 +1,6 @@
 #require "sunlight"
 require "pry"
+require 'csv'
 
 
 #Sunlight::Base.api_key = "8f5000aeb75c4925b7562198b8c60d3a"
@@ -7,14 +8,10 @@ require "pry"
 class Queue
   attr_accessor :queue
   def initialize
-    # @queue = {}
     @queue = []
   end
 
   def add_to_queue(attendee)
-    # member = {}
-    # member[row] = attendee
-    # @queue.merge!(member)
     @queue << attendee
   end
 
@@ -27,7 +24,7 @@ class Queue
   end
 
 
-  def print_queue#(input)
+  def print_queue
     i = 0
     printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %s\n", "FIRST NAME", "LAST NAME", "EMAIL", "HOME PHONE", "STREET", "CITY", "STATE", "ZIP CODE"
     @queue.each do |elem|
@@ -77,14 +74,20 @@ class Queue
   end
 
   def queue_save_to(file_name)
+  CSV.open("#{file_name}.csv", "wb") do |csv|
+  csv << @queue.first.keys # adds the attributes name on the first line
+  @queue.each do |hash|
+    csv << hash.values
+  end
+end
   end
 
   def queue_export_html(file_name)
   end
 
 end
-#  q = Queue.new
-#  q.add_to_queue({"first_name"=>"Sarah",
+#   q = Queue.new
+#   q.add_to_queue({"first_name"=>"Sarah",
 #             "last_name"=>"Riordan",
 #             "email"=>"ctuhspugha@jumpstartlab.com",
 #             "home_phone"=>"7202058000",
@@ -92,7 +95,7 @@ end
 #             "city"=>"Denver",
 #             "state"=>"CO",
 #             "zipcode"=>"80212"})
-# q.add_to_queue({"first_name"=>"Sarah",
+#  q.add_to_queue({"first_name"=>"Sarah",
 #             "last_name"=>"Hough",
 #             "email"=>"gi@jumpstartlab.com",
 #             "home_phone"=>"2036506000",
@@ -100,8 +103,9 @@ end
 #             "city"=>"Stratford",
 #             "state"=>"CT",
 #             "zipcode"=>"06614"})
-#  # puts q.count_queue
-#  # q.print_queue
+#  puts q.count_queue
+# q.print_queue
+# q.queue_save_to("new_queue")
 # q.queue_print_by("last_name")
 # q.queue_print_by("zipcode")
 # q.queue_print_by("state")
