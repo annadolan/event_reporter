@@ -19,7 +19,7 @@ def get_command
 
   @user_input   = input[0]
   @user_input_2 = input[1]
-  @user_input_3 = input[2]
+  @user_input_3 = [input[2..-1]].join(" ").to_s
   do_command
 end
 

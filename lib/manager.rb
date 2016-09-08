@@ -25,7 +25,7 @@ class Manager
   def find(user_input_2, user_input_3)
     @queue.clear_queue
     @file.select do |row, attendee|
-    @queue.add_to_queue(attendee) if attendee[user_input_2].downcase == user_input_3.downcase
+    @queue.add_to_queue(attendee) if attendee[user_input_2].downcase == user_input_3
     end
     end
 

@@ -44,30 +44,12 @@ class Queue
   end
 
   def queue_print_by(attribute)
-    if @queue[0].length <= 8
-      i = 0
-      printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %s\n", "FIRST NAME", "LAST NAME", "EMAIL", "HOME PHONE", "STREET", "CITY", "STATE", "ZIP CODE"
-      sorted = @queue.sort_by do |item|
-        item[attribute]
-      end
-      sorted.each do |elem|
-        printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %s\n", sorted[i]["first_name"], sorted[i]["last_name"], sorted[i]["email"], sorted[i]["home_phone"],
-                sorted[i]["street"], sorted[i]["city"], sorted[i]["state"], sorted[i]["zipcode"]
-        i += 1
-      end
-    else
-      i = 0
-      printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %-10s %s\n", "FIRST NAME", "LAST NAME", "EMAIL", "HOME PHONE", "STREET", "CITY", "STATE", "ZIP CODE", "DISTRICT"
-      sorted = @queue.sort_by do |item|
-        item[attribute]
-      end
-      sorted.each do |elem|
-        printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %-10s %s\n", sorted[i]["first_name"], sorted[i]["last_name"], sorted[i]["email"], sorted[i]["home_phone"],
-                sorted[i]["street"], sorted[i]["city"], sorted[i]["state"], sorted[i]["zipcode"], sorted[i]["district"]
-        i += 1
-      end
-    end
-  end
+    sorted = @queue.sort_by do |item|
+           item[attribute]
+         end
+    @queue = sorted
+    print_queue
+   end
 
 
   def district_by_zipcode(zipcode)
