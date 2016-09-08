@@ -1,4 +1,4 @@
-class Cleaner
+module Cleaner
   def clean_first_name(first_name)
     first_name.to_s.gsub(/[^a-zA-Z ]/, '').split(/\s/).map(&:capitalize).join(" ")
   end
@@ -17,7 +17,6 @@ class Cleaner
 
   def clean_street(street)
     street.to_s.split(/\s/).map(&:capitalize).join(" ")
-
   end
 
   def clean_city(city)
@@ -31,5 +30,4 @@ class Cleaner
   def clean_zipcode(zipcode)
     zipcode.to_s.gsub(/[^0-9]/, '').rjust(5,"0")[0..4]
   end
-
 end

@@ -1,7 +1,7 @@
-require "./lib/organizer"
+require "./lib/looper"
 
 class EventReporter
-    o = Organizer.new
-    puts "Enter command."
-    o.get_command
+  looper = Looper.new
+  puts "Enter command."
+  looper.get_command
 end
