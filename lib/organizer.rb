@@ -1,80 +1,66 @@
 require 'pry'
-#require "csv"
-#require "sunlight/congress"
-require "./lib/loader"
+require "./lib/manager"
 require "./lib/helper"
 require "./lib/queue"
 
 class Organizer
- attr_reader :file
- def initialize
-   @file = nil
-   @l = Loader.new
-   @help = Helper.new
- end
+  # include Helper
 
-puts "Enter command."
+  attr_reader :file
+ def initialize
+   @file    = nil
+   @manager = Manager.new
+   @help    = Helper.new
+ end
 
 def get_command
   input = gets.chomp
   input = input.downcase.gsub(/to | by /, " ").split(" ")
 
-  @command = input[0]
-  @command2 = input[1]
-  @command3 = input[2]
+  @user_input   = input[0]
+  @user_input_2 = input[1]
+  @user_input_3 = input[2]
   do_command
 end
 
 def do_command
-  if @command == "load"
-    if @command2.nil?
-      file_name = "event_attendees.csv"
-    else file_name = @command2
-    end
-    @l.load_file(file_name)
-    @file = @l.attendees
-  elsif @command == "queue" && @command2 == "count"
-    puts @l.count_queue
-  elsif @command == "queue" && @command2 == "clear"
-    @l.clear_queue
-  elsif @command == "queue" && @command2 == "print"
-    if @command3.nil?
-      @l.print_queue
-    else
-      @l.queue_print_by(@command3)
-    end
-  elsif @command == "queue" && @command2 == "save"
-    @l.queue_save_to(@command3)
-  elsif @command == "help"
-    @help.run_help(@command2, @command3)
-  elsif @command == "find"
-    @l.clear_queue
-    @l.find(@command2, @command3)
-  elsif @command == "exit"
-     return nil
-   else puts "Not a valid command"
+  case @user_input
+  when "load" then run_load
+  when "queue" then run_queue
+  when "help" then @help.run_help(@user_input_2, @user_input_3)
+  when "find" then @manager.find(@user_input_2, @user_input_3)
+  when "quit" then return nil
+  else puts "Not a valid command, try again"
   end
   get_command
 end
 
-# def run_queue
-#   case command2
-#   when "count" then puts queue.length
-#   when "clear" then queue = []
-#   when "district"
-#       if queue.length <= 10
-#         queue_district
-#       end
-#   when "print" then queue_print
-#   when "save" then queue_save
-#   when "export" then queue_export
-#   end
+def run_load
+  case @user_input_2
+  when nil then file_name = "event_attendees.csv"
+  else file_name = @user_input_2
+  end
+  @manager.load_file(file_name)
+  @manager.attendees
+end
 
-
-
-# end
+def run_queue
+  case @user_input_2
+  when "count" then puts @manager.count_queue
+  when "clear" then @manager.clear_queue
+  when "district" then @manager.queue_district
+  when "print"
+    if @user_input_3.nil?
+      @manager.print_queue
+    else
+      @manager.queue_print_by(@user_input_3)
+    end
+  when "save" then @manager.queue_save_to(@user_input_3)
+  when "export" then @manager.queue_export(@user_input_3)
+  end
+end
 
 end
 
- o = Organizer.new
- o.get_command
+ # o = Organizer.new
+ # o.get_command

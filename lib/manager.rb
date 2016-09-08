@@ -3,7 +3,7 @@ require 'csv'
 require "./lib/column_definer"
 require "./lib/queue"
 
-class Loader
+class Manager
     attr_accessor :queue
     def initialize
       @queue = Queue.new
@@ -22,9 +22,10 @@ class Loader
      @file
    end
 
-  def find(command2, command3)
+  def find(user_input_2, user_input_3)
+    @queue.clear_queue
     @file.select do |row, attendee|
-    @queue.add_to_queue(attendee) if attendee[command2].downcase == command3.downcase
+    @queue.add_to_queue(attendee) if attendee[user_input_2].downcase == user_input_3.downcase
     end
     end
 
@@ -47,11 +48,19 @@ class Loader
   def queue_save_to(input)
     @queue.queue_save_to(input)
   end
+
+  def queue_district
+    @queue.queue_district
+  end
+
+  def queue_export(input)
+    @queue.queue_export_html(input)
+  end
 end
 
-    # l = Loader.new
-    # l.load_file("event_attendees.csv")
-    # l.attendees
+    #  l = Loader.new
+    #  l.load_file("event_attendees.csv")
+    #  l.attendees
     # l.find("first_name", "sarah")
     # puts l.count_queue
   #  l.queue_print_by("last_name")

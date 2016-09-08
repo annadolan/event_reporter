@@ -38,6 +38,12 @@ class QueueTest < Minitest::Test
   end
 
   def test_queue_district
+    skip
+    q = Queue.new
+
+  end
+
+  def test_clear_queue
     q = Queue.new
     attendee = {"first_name"=>"Sarah",
                 "last_name"=>"Riordan",
@@ -60,6 +66,22 @@ class QueueTest < Minitest::Test
 
     assert_equal 2, q.count_queue
 
-    assert_equal [1, 2], q.queue_district
+    q.clear_queue
+    assert_equal 0, q.count_queue
   end
+
+  def test_print_queue
+    skip
+    q = Queue.new
+    attendee = {"first_name"=>"Sarah",
+                "last_name"=>"Riordan",
+                "email"=>"ctuhspugha@jumpstartlab.com",
+                "home_phone"=>"7202058000",
+                "street"=>"2814 Tennyson St.",
+                "city"=>"Denver",
+                "state"=>"CO",
+                "zipcode"=>"80212"}
+    q.add_to_queue(attendee)
+
+
 end
