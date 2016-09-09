@@ -1,7 +1,8 @@
 module Cleaner
   def clean_first_name(first_name)
     first_name
-      .to_s.gsub(/[^a-zA-Z ]/, '')
+      .to_s
+      .gsub(/[^a-zA-Z ]/, '')
       .split(/\s/)
       .map(&:capitalize)
       .join(" ")
