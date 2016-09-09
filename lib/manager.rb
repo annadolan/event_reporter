@@ -39,7 +39,7 @@ class Manager
   end
 
   def queue_print_by(input)
-      @queue.queue_print_by(input)
+    @queue.queue_print_by(input)
   end
 
   def queue_save_to(input)

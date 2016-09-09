@@ -28,14 +28,14 @@ class Queue
       i = 0
       printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %s\n", "FIRST NAME", "LAST NAME", "EMAIL", "HOME PHONE", "STREET", "CITY", "STATE", "ZIP CODE"
       @queue.each do |elem|
-        printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %s\n", @queue[i]["first_name"], @queue[i]["last_name"], @queue[i]["email"], @queue[i]["home_phone"], @queue[i]["street"], @queue[i]["city"], @queue[i]["state"], @queue[i]["zipcode"]
+        printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %s\n", @queue[i]["first_name"], @queue[i]["last_name"], @queue[i]["email_address"], @queue[i]["homephone"], @queue[i]["street"], @queue[i]["city"], @queue[i]["state"], @queue[i]["zipcode"]
         i += 1
       end
     else
       i = 0
       printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %-10s %s\n", "FIRST NAME", "LAST NAME", "EMAIL", "HOME PHONE", "STREET", "CITY", "STATE", "ZIP CODE", "DISTRICT"
       @queue.each do |elem|
-        printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %-10s %s\n", @queue[i]["first_name"], @queue[i]["last_name"], @queue[i]["email"], @queue[i]["home_phone"], @queue[i]["street"], @queue[i]["city"], @queue[i]["state"], @queue[i]["zipcode"], @queue[i]["district"]
+        printf "%-10s %-15s %-45s %-15s %-40s %-25s %-10s %-10s %s\n", @queue[i]["first_name"], @queue[i]["last_name"], @queue[i]["email_address"], @queue[i]["homephone"], @queue[i]["street"], @queue[i]["city"], @queue[i]["state"], @queue[i]["zipcode"], @queue[i]["district"]
         i += 1
       end
     end
@@ -52,7 +52,11 @@ class Queue
   def district_by_zipcode(zipcode)
     url = "http://congress.api.sunlightfoundation.com/districts/locate?zip=#{zipcode}&apikey=8f5000aeb75c4925b7562198b8c60d3a"
     data = JSON.parse(open(url).read)
-    data["results"][0]["district"]
+    if data["results"][0].nil?
+      district = "n/a"
+    else district = data["results"][0]["district"]
+    end
+    district
   end
 
   def queue_district
@@ -71,7 +75,7 @@ class Queue
   end
 
   def queue_save_to(file_name)
-    CSV.open("./output/#{file_name}.csv", "wb") do |csv|
+    CSV.open("./output/#{file_name}", "wb") do |csv|
       csv << @queue.first.keys
       @queue.each do |hash|
         csv << hash.values
@@ -83,7 +87,7 @@ class Queue
     template = File.read "html_format.erb"
     erb_template = ERB.new template
     export_report = erb_template.result(binding)
-    File.open("./output/#{filename}.html",'w') do |file|
+    File.open("./output/#{filename}",'w') do |file|
       file.puts export_report
     end
   end
