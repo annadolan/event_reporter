@@ -5,7 +5,7 @@ require "./lib/queue"
 
 class Looper
  include Helper
-
+ 
   def initialize
     @manager = Manager.new
   end
@@ -13,11 +13,9 @@ class Looper
   def get_command
     input = gets.chomp
     input = input.downcase.gsub(/to | by | html/, " ").split(" ")
-
     @user_input   = input[0]
     @user_input_2 = input[1]
     @user_input_3 = [input[2..-1]].join(" ").to_s
-
     do_command
   end
 
