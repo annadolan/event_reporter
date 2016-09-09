@@ -34,6 +34,7 @@ class HelperTest < Minitest::Test
 
   def test_help_queue_print
     assert_equal "Prints items in queue, by attribute or criteria if specified", help_queue("print")
+    assert_equal "Prints items in queue, by attribute or criteria if specified", help_queue("print by")
   end
 
   def test_help_queue_save

@@ -2,7 +2,7 @@ require "./lib/cleaner"
 
 class DataCleaner
   include Cleaner
-  
+
   def clean_data(contents)
     cleaned = {}
     contents.each_with_index do |row, i|
@@ -14,14 +14,15 @@ class DataCleaner
     city          = clean_city(row[:city])
     state         = clean_state(row[:state])
     zipcode       = clean_zipcode(row[:zipcode])
-    cleaned[i+1]  = {"first_name"    => first_name,
+    cleaned[i+1]  = {
                     "last_name"     => last_name,
+                    "first_name"    => first_name,
                     "email_address" => email_address,
-                    "homephone"     => homephone,
-                    "street"        => street,
+                    "zipcode"       => zipcode,
                     "city"          => city,
                     "state"         => state,
-                    "zipcode"       => zipcode}
+                    "street"        => street,
+                    "homephone"     => homephone}
     end
     cleaned
   end

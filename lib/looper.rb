@@ -12,7 +12,7 @@ class Looper
 
   def get_command
     input = gets.chomp
-    input = input.downcase.gsub(/to | by /, " ").split(" ")
+    input = input.downcase.gsub(/to | by | html/, " ").split(" ")
 
     @user_input   = input[0]
     @user_input_2 = input[1]
