@@ -1,5 +1,5 @@
-###Event Reporter
-##Project requirements at https://github.com/turingschool/curriculum/blob/master/source/projects/event_reporter.markdown
+##Event Reporter
+###Project requirements at https://github.com/turingschool/curriculum/blob/master/source/projects/event_reporter.markdown
 This project loads a CSV file containing data from a group of event attendees. Based on this data file,
 it implements a REPL to output cleaned data according to the user's specifications.
 
