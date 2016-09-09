@@ -14,8 +14,7 @@ class DataCleaner
     city          = clean_city(row[:city])
     state         = clean_state(row[:state])
     zipcode       = clean_zipcode(row[:zipcode])
-    cleaned[i+1]  = {
-                    "last_name"     => last_name,
+    cleaned[i+1]  = {"last_name"     => last_name,
                     "first_name"    => first_name,
                     "email_address" => email_address,
                     "zipcode"       => zipcode,
